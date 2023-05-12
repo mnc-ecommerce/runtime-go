@@ -1,4 +1,4 @@
-module github.com/zackyymughnii/runtime-go
+module github.com/mnc-ecommerce/runtime-go
 
 go 1.19
 
