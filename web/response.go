@@ -3,8 +3,8 @@ package web
 import (
 	"github.com/go-playground/validator/v10"
 	"github.com/pkg/errors"
-	"github.com/zackyymughnii/runtime-go"
-	v "github.com/zackyymughnii/runtime-go/validator"
+	"github.com/mnc-ecommerce/runtime-go"
+	v "github.com/mnc-ecommerce/runtime-go/validator"
 )
 
 type Response struct {
