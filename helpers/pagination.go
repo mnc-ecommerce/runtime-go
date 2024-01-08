@@ -3,7 +3,7 @@ package helpers
 import (
 	"math"
 
-	"github.com/zackyymughnii/runtime-go/web"
+	"github.com/mnc-ecommerce/runtime-go/web"
 )
 
 func CalculatePage(current int, limit int, total int) web.Pagination {
