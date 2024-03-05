@@ -3,6 +3,7 @@ package database
 import (
 	"context"
 	"fmt"
+	"github.com/exaring/otelpgx"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -43,5 +44,25 @@ func Open(cfg Config) (*pgxpool.Pool, error) {
 		return nil, err
 	}
 
+	return conn, nil
+}
+
+func OpenWithTracer(config Config) (*pgxpool.Pool, error) {
+	cfg, err := pgxpool.ParseConfig(config.DSN())
+	if err != nil {
+		return nil, fmt.Errorf("create connection pool: %w", err)
+	}
+
+	cfg.MaxConns = 7
+	cfg.MinConns = 0
+	cfg.MaxConnIdleTime = time.Minute * 30
+	cfg.MaxConnLifetime = time.Hour
+	cfg.HealthCheckPeriod = time.Minute
+	cfg.ConnConfig.Tracer = otelpgx.NewTracer()
+
+	conn, err := pgxpool.NewWithConfig(context.Background(), cfg)
+	if err != nil {
+		return nil, fmt.Errorf("connect to database: %w", err)
+	}
 	return conn, nil
 }
